@@ -1,0 +1,13 @@
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.exe
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.deps.json
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.runtimeconfig.json
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.runtimeconfig.dev.json
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.dll
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\bin\Debug\netcoreapp3.1\FiLP_L1.pdb
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.csprojAssemblyReference.cache
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.AssemblyInfoInputs.cache
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.AssemblyInfo.cs
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.csproj.CoreCompileInputs.cache
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.dll
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.pdb
+C:\Users\Akatsuki\source\repos\FiLP_L1\FiLP_L1\obj\Debug\netcoreapp3.1\FiLP_L1.genruntimeconfig.cache
