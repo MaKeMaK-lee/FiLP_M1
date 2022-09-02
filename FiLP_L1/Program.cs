@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace FiLP_L1
 {
@@ -66,162 +67,176 @@ namespace FiLP_L1
 
             do
             {
-                Console.Clear();
-                Console.WriteLine("Библиотека:");
-                foreach (var b in Biblio)
+                try
                 {
-                    Console.WriteLine($"\t{b.Name} ({b.CountExam} экз.), {b.Author.Name} {b.Author.Lastname} {b.Author.YearBurned}г.");
-                    foreach (var e in b.List)
-                        Console.WriteLine($"Издание {e.NumberEdition}: {e.Price} руб, {e.PageCount} стр. {e.Publisher}, {e.YearWhenEdited} год.");
-                    Console.WriteLine();
-                }
+                    Console.Clear();
+                    Console.WriteLine("Библиотека:");
+                    foreach (var b in Biblio)
+                    {
+                        Console.WriteLine($"\t{b.Name} ({b.CountExam} экз.), {b.Author.Name} {b.Author.Lastname} {b.Author.YearBurned}г.");
+                        foreach (var e in b.List)
+                            Console.WriteLine($"Издание {e.NumberEdition}: {e.Price} руб, {e.PageCount} стр. {e.Publisher}, {e.YearWhenEdited} год.");
+                        Console.WriteLine();
+                    }
 
-                Console.WriteLine("Нажмите код операции:\n1.Найти автора, у которого книга имеет самый ранний год издания.\n2.Найти все книги, изданные более одного раза(проверка по номеру издания).\n3.Найти все книги, изданные в заданном издательстве за последние десять лет.\n4.Найти все книги заданного автора.\n5.Найти все книги, цена которых превышает заданную сумму.\n");
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.D1:
-                        {
-                            Author a = new Author();
-                            int year = int.MaxValue;
-                            foreach (var b in Biblio)
-                                foreach (var e in b.List)
-                                    if (e.YearWhenEdited < year)
-                                    {
-                                        year = e.YearWhenEdited;
-                                        a = b.Author;
-                                    }
-                            Console.WriteLine("Автор, у которого книга имеет самый ранний год издания: " + a.Name + " " + a.Lastname);
-                            break;
-                        }
-                    case ConsoleKey.D2:
-                        {
-                            Console.WriteLine("Книги, изданные более одного раза:");
-                            foreach (var b in Biblio)
-                                foreach (var e in b.List)
-                                    if (e.NumberEdition > 1)
-                                    {
-                                        Console.WriteLine(b.Name);
-                                        break;
-                                    }
-                            break;
-                        }
-                    case ConsoleKey.D3:
-                        {
-                            Console.WriteLine("Нажмите код издателя:\n1: RyazanskieKnigi322\n2: MoskovskieKnigi322\n3: RosiiskieKnigi322\n4: WorldKisekies\n5: La Pupunte\n6: Зорька пушистая\n7: Ели-ели");
-                            string pub = "";
-                            switch (Console.ReadKey(true).Key)
+                    Console.WriteLine("Нажмите код операции:\n1.Найти автора, у которого книга имеет самый ранний год издания.\n2.Найти все книги, изданные более одного раза(проверка по номеру издания).\n3.Найти все книги, изданные в заданном издательстве за последние десять лет.\n4.Найти все книги заданного автора.\n5.Найти все книги, цена которых превышает заданную сумму.\n");
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.D1:
                             {
-                                case ConsoleKey.D1:
-                                    {
-                                        pub = "RyazanskieKnigi322";
-                                        break;
-                                    }
-                                case ConsoleKey.D2:
-                                    {
-                                        pub = "MoskovskieKnigi322";
-                                        break;
-                                    }
-                                case ConsoleKey.D3:
-                                    {
-                                        pub = "RosiiskieKnigi322";
-                                        break;
-                                    }
-                                case ConsoleKey.D4:
-                                    {
-                                        pub = "WorldKisekies";
-                                        break;
-                                    }
-                                case ConsoleKey.D5:
-                                    {
-                                        pub = "La Pupunte";
-                                        break;
-                                    }
-                                case ConsoleKey.D6:
-                                    {
-                                        pub = "Зорька пушистая";
-                                        break;
-                                    }
-                                case ConsoleKey.D7:
-                                    {
-                                        pub = "Ели-ели";
-                                        break;
-                                    }
-                            }
-                            if (pub == "")
-                            {
-                                Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-7 соответственно перечисленным пунктам.");
+                                Author a = new Author();
+                                int year = int.MaxValue;
+                                foreach (var b in Biblio)
+                                    foreach (var e in b.List)
+                                        if (e.YearWhenEdited < year)
+                                        {
+                                            year = e.YearWhenEdited;
+                                            a = b.Author;
+                                        }
+                                Console.WriteLine("Автор, у которого книга имеет самый ранний год издания: " + a.Name + " " + a.Lastname);
                                 break;
                             }
-                            Console.WriteLine($"\nКниги, изданные издательством {pub} за последние 10 лет (Сегодня {DateTime.Now.ToShortDateString()}):");
-                            foreach (var b in Biblio)
-                                foreach (var e in b.List)
-                                    if (e.Publisher == pub)
-                                        if (Math.Abs(e.YearWhenEdited - DateTime.Now.Year) <= 10)
+                        case ConsoleKey.D2:
+                            {
+                                Console.WriteLine("Книги, изданные более одного раза:");
+                                foreach (var b in Biblio)
+                                    foreach (var e in b.List)
+                                        if (e.NumberEdition > 1)
                                         {
                                             Console.WriteLine(b.Name);
                                             break;
                                         }
-                            break;
-                        }
-                    case ConsoleKey.D4:
-                        {
-                            Console.WriteLine("Нажмите код Автора:\n1: Nikolos Bulba\n2: Lapelion De Sagastiya\n3: Vasya Savochkin");
-                            Author auto = null;
-                            switch (Console.ReadKey(true).Key)
-                            {
-                                case ConsoleKey.D1:
-                                    {
-                                        auto = a1;
-                                        break;
-                                    }
-                                case ConsoleKey.D2:
-                                    {
-                                        auto = a2;
-                                        break;
-                                    }
-                                case ConsoleKey.D3:
-                                    {
-                                        auto = a3;
-                                        break;
-                                    }
-                            }
-                            if (auto == null)
-                            {
-                                Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-3 соответственно перечисленным пунктам.");
                                 break;
                             }
-                            Console.WriteLine($"\nКниги автора {auto.Name} {auto.Lastname}:");
-                            foreach (var b in Biblio)
-                                if (b.Author == auto)
-                                    Console.WriteLine(b.Name);
-                            break;
-                        }
-                    case ConsoleKey.D5:
-                        {
-                            Console.WriteLine("Задайте цену:");
-                            int pr = Convert.ToInt32(Console.ReadLine());
+                        case ConsoleKey.D3:
+                            {
+                                Console.WriteLine("Нажмите код издателя:\n1: RyazanskieKnigi322\n2: MoskovskieKnigi322\n3: RosiiskieKnigi322\n4: WorldKisekies\n5: La Pupunte\n6: Зорька пушистая\n7: Ели-ели");
+                                string pub = "";
+                                switch (Console.ReadKey(true).Key)
+                                {
+                                    case ConsoleKey.D1:
+                                        {
+                                            pub = "RyazanskieKnigi322";
+                                            break;
+                                        }
+                                    case ConsoleKey.D2:
+                                        {
+                                            pub = "MoskovskieKnigi322";
+                                            break;
+                                        }
+                                    case ConsoleKey.D3:
+                                        {
+                                            pub = "RosiiskieKnigi322";
+                                            break;
+                                        }
+                                    case ConsoleKey.D4:
+                                        {
+                                            pub = "WorldKisekies";
+                                            break;
+                                        }
+                                    case ConsoleKey.D5:
+                                        {
+                                            pub = "La Pupunte";
+                                            break;
+                                        }
+                                    case ConsoleKey.D6:
+                                        {
+                                            pub = "Зорька пушистая";
+                                            break;
+                                        }
+                                    case ConsoleKey.D7:
+                                        {
+                                            pub = "Ели-ели";
+                                            break;
+                                        }
+                                }
+                                if (pub == "")
+                                {
+                                    Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-7 соответственно перечисленным пунктам.");
+                                    break;
+                                }
+                                Console.WriteLine($"\nКниги, изданные издательством {pub} за последние 10 лет (Сегодня {DateTime.Now.ToShortDateString()}):");
+                                foreach (var b in Biblio)
+                                    foreach (var e in b.List)
+                                        if (e.Publisher == pub)
+                                            if (Math.Abs(e.YearWhenEdited - DateTime.Now.Year) <= 10)
+                                            {
+                                                Console.WriteLine(b.Name);
+                                                break;
+                                            }
+                                break;
+                            }
+                        case ConsoleKey.D4:
+                            {
+                                Console.WriteLine("Нажмите код Автора:\n1: Nikolos Bulba\n2: Lapelion De Sagastiya\n3: Vasya Savochkin");
+                                Author auto = null;
+                                switch (Console.ReadKey(true).Key)
+                                {
+                                    case ConsoleKey.D1:
+                                        {
+                                            auto = a1;
+                                            break;
+                                        }
+                                    case ConsoleKey.D2:
+                                        {
+                                            auto = a2;
+                                            break;
+                                        }
+                                    case ConsoleKey.D3:
+                                        {
+                                            auto = a3;
+                                            break;
+                                        }
+                                }
+                                if (auto == null)
+                                {
+                                    Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-3 соответственно перечисленным пунктам.");
+                                    break;
+                                }
+                                Console.WriteLine($"\nКниги автора {auto.Name} {auto.Lastname}:");
+                                foreach (var b in Biblio)
+                                    if (b.Author == auto)
+                                        Console.WriteLine(b.Name);
+                                break;
+                            }
+                        case ConsoleKey.D5:
+                            {
+                                Console.WriteLine("Задайте цену:");
+                                int pr = Convert.ToInt32(Console.ReadLine());
 
-                            Console.WriteLine($"\nКниги с ценой > {pr}:");
+                                Console.WriteLine($"\nКниги с ценой > {pr}:");
 
-                            bool w = true;
-                            foreach (var b in Biblio)
-                                foreach (var e in b.List)
-                                    if (e.Price > pr)
-                                    {
-                                        Console.WriteLine(b.Name + ", издание " + e.NumberEdition);
-                                        w = false;
-                                    }
-                            if (w)
-                                Console.WriteLine("...не найдены.");
-                            break;
-                        }
-                    default:
-                        {
-                            Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-5 соответственно перечисленным пунктам.");
-                            break;
-                        }
+                                bool w = true;
+                                foreach (var b in Biblio)
+                                    foreach (var e in b.List)
+                                        if (e.Price > pr)
+                                        {
+                                            Console.WriteLine(b.Name + ", издание " + e.NumberEdition);
+                                            w = false;
+                                        }
+                                if (w)
+                                    Console.WriteLine("...не найдены.");
+                                break;
+                            }
+                        default:
+                            {
+                                Console.WriteLine("Ничего не выполнено. Здесь следует нажать цифру 1-5 соответственно перечисленным пунктам.");
+                                break;
+                            }
+                    }
                 }
-                Console.WriteLine("\n\nДля завершения работы программы нажмите Esc, для продолжения любую клавишу.");
+                catch (FormatException e)
+                {
+                    Console.WriteLine("\n\nОшибка.\nНеверный формат. Вероятно, был произведён некорректный ввод.");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("\n\nОшибка.\n" + e.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("\n\nДля завершения работы программы нажмите Esc, для продолжения любую клавишу.");
+                }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
 
